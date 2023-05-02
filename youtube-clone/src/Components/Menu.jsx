@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import YTLogo from '../Images/YouTubeLogo.png'
 
@@ -81,12 +82,14 @@ const Menu = ({darkMode,setDarkMode}) => {
   return (
     <Container>
         <Wrapper>
+        <Link to="/" style={{textDecoration:"none", color:"inherit"}}>
             <Logo>
                 <Img src={YTLogo}/>
                 <LogoTextHolder>
                     YouTube
                 </LogoTextHolder>
             </Logo>
+        </Link>
 
             <Item>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-1 h-1" height={"20px"} width={"20px"}>

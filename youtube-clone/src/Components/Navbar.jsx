@@ -41,7 +41,7 @@ const SearchIconContainer = styled.div`
   right:35px;
   margin:auto;
   width:5%;
-  background-color:gray;
+  background-color:lightgray;
   border:1px solid black;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
