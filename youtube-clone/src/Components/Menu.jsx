@@ -4,10 +4,12 @@ import YTLogo from '../Images/YouTubeLogo.png'
 
 const Container = styled.div`
     flex:1;
-    background-color:#202020;
+    background-color:${({theme}) => theme.bgLighter};
     height:100vh;
-    color:white;
+    color:${({theme}) => theme.text};
     font-size:14px;
+    position:sticky;
+    top:0;
 `
 const Wrapper = styled.div`
     padding: 18px 6px;
@@ -30,22 +32,52 @@ const Img = styled.img`
 
 const LogoTextHolder = styled.div`
     position:absolute;
-    bottom:2%;
-    left:30%;
+    bottom:1%;
+    left:26%;
     width:100px;
     height:100px;
 `
 
 const Item = styled.div`
     display: flex;
-    margin-top:15px;
     width:auto;
     align-items:center;
     gap:15px;
     cursor: pointer;
+    padding:7.5px 0px;
 `
 
-const Menu = () => {
+const Hr = styled.hr`
+    margin:15px 0px;
+    border: 0.5px solid ${({theme}) => theme.soft};
+`
+
+const Login = styled.div`
+    
+`
+
+const Button = styled.button`
+    padding:5px 15px;
+    background-color:transparent;
+    border:1px solid #3ea6ff;
+    color:#3ea6ff;
+    border-radius:3px;
+    font-weight:500;
+    margin-top:10px;
+    cursor:pointer;
+    display: flex;
+    align-items:center;
+    gap:5px;
+`
+
+const Title = styled.h2`
+    font-size:14px;
+    font-weight:500;
+    color:#aaaaaa;
+    margin-bottom:20px;
+`
+
+const Menu = ({darkMode,setDarkMode}) => {
   return (
     <Container>
         <Wrapper>
@@ -77,6 +109,25 @@ const Menu = () => {
             Subscriptions
             </Item>
 
+            <Hr/>
+            
+            <Login>
+            Sign in to like videos, comment, and subscribe.
+            </Login> 
+            
+            <Button>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-1 h-1" height={"15px"} width={"15px"}>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+            </svg>
+
+                    SIGN IN
+            </Button>   
+            <Hr/>
+            
+            <Title>
+            More from YouTube
+            </Title>
+
             <Item>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-1 h-1" height={"20px"} width={"20px"}>
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
@@ -91,6 +142,8 @@ const Menu = () => {
             </svg>
             History
             </Item>
+
+           
 
             <Item>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-1 h-1" height={"20px"} width={"20px"}>
@@ -107,6 +160,8 @@ const Menu = () => {
 
             Liked videos
             </Item>
+
+            <Hr/>
 
             <Item>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-1 h-1" height={"20px"} width={"20px"}>
@@ -132,21 +187,7 @@ const Menu = () => {
             Movies
             </Item>
 
-            <Item>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-1 h-1" height={"20px"} width={"20px"}>
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
-            </svg>
-
-            News
-            </Item>
-
-            <Item>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-1 h-1" height={"20px"} width={"20px"}>
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 20.25h12m-7.5-3v3m3-3v3m-10.125-3h17.25c.621 0 1.125-.504 1.125-1.125V4.875c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125z" />
-            </svg>
-
-            Live
-            </Item>
+            <Hr/>
 
             <Item>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-1 h-1" height={"20px"} width={"20px"}>
@@ -167,16 +208,7 @@ const Menu = () => {
             Report
             </Item>
 
-            <Item>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-1 h-1" height={"20px"} width={"20px"}>
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
-            </svg>
-
-
-            Help
-            </Item>
-
-            <Item>
+            <Item onClick={() => setDarkMode(!darkMode)}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-1 h-1" height={"20px"} width={"20px"}>
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
             </svg>
