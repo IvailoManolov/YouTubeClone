@@ -2,20 +2,31 @@ import express from "express"
 import mongoose from "mongoose"
 import dotenv from "dotenv"
 
-dotenv.config()
+import channelRoute from "./routes/channels.js"
+import commentRoute from "./routes/comments.js"
+import videoRoute from "./routes/videos.js"
+import authenticationRoute from "./routes/authentication.js"
 
-const application = express()
+dotenv.config();
+
+const application = express();
+
 const connect = async () => {
     try{
-        await mongoose.connect(process.env.CONNECTION_STRING)
-        console.log("Connected to DB")
+        await mongoose.connect(process.env.CONNECTION_STRING);
+        console.log("Connected to DB");
     }
     catch(err){
         console.log(err)
     }
 }
 
+application.use("/api/authentication",authenticationRoute);
+application.use("/api/channels",channelRoute);
+application.use("/api/comments",commentRoute);
+application.use("/api/videos",videoRoute);
+
 application.listen(8800,() => {
-    console.log("Listening")
-    connect()
+    console.log("Listening");
+    connect();
 })
