@@ -6,6 +6,7 @@ import channelRoute from "./routes/channels.js"
 import commentRoute from "./routes/comments.js"
 import videoRoute from "./routes/videos.js"
 import authenticationRoute from "./routes/authentication.js"
+import cookieParser from "cookie-parser"
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ const connect = async () => {
     }
 }
 
+application.use(cookieParser());
 application.use(express.json())
 
 application.use((err, req, res, next) => {
