@@ -1,5 +1,11 @@
 export const updateUser = (req, res, next) => {
 
+    if(req.params.id === req.user.id) {
+
+    }
+    else {
+        return next(createError(403,"You can update only your account!"));
+    }
 }
 
 export const deleteUser = (req, res, next) => {

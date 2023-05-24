@@ -1,10 +1,11 @@
 import express from "express"
 import { dislike, getUser, like, subscribe, unsubscribe, updateUser } from "../controllers/ChannelController";
+import { verifyToken } from "../verifyToken";
 
 const router = express.Router();
 
 // updating a user.
-router.put("/:id", updateUser);
+router.put("/:id", verifyToken, updateUser);
 
 // get a user.
 router.get("/find/:id", getUser);
