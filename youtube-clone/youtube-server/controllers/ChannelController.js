@@ -37,27 +37,46 @@ export const deleteUser = async (req, res, next) => {
 
 export const getUser = async (req, res, next) => {
     try{
-
+        const channel = Channel.findById(req.params.id);
+        res.status(200).json(channel);
     }
     catch(err){
+        console.log("Channel not found!");
         next(err)
     }
 }
 
 export const subscribe = async (req, res, next) => {
     try{
+        await Channel.findById(req.user.id,{
+            $push:{subscribedUsers:req.params.id}
+        })
 
+        await Channel.findByIdAndUpdate(req.params.id,{
+            $inc:{subscribers:1}
+        })
+
+        res.status(200).json("Subscription successfull.");
     }
     catch(err){
+        console.log("Subscription unsuccessfull");
         next(err)
     }
 }
 
 export const unsubscribe = async (req, res, next) => {
     try{
+        await Channel.findById(req.user.id,{
+            $pull:{subscribedUsers:req.params.id}
+        })
 
+        await Channel.findByIdAndUpdate(req.params.id,{
+            $inc:{subscribers:-1}
+        })
+        res.status(200).json("Unsubscription successfull.");
     }
     catch(err){
+        console.log("Unsubscription unsuccessfull.");
         next(err)
     }
 }
