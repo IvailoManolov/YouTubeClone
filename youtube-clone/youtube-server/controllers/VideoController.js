@@ -118,13 +118,23 @@ export const trendVideo = async (req,res,next) => {
 }
 
 export const subbed = async (req,res,next) => {
-    try{
-        const searchedVideo = await Video.findById(req.params.id);
+    try {
+        const currentUser = await Channel.findById(req.user.id);
 
-        res.status(200).json(searchedVideo);
+        // Get list of channels that you are subscribed to.
+        const subscribedChannels = currentUser.subscribedUsers;
+
+        // From the videos, return all videos that are from the creator who you subscribed to.
+        const list = await Promise.all(
+            subscribedChannels.map(channelId => {
+                return Video.find({userId:channelId});
+            })
+        );
+
+        res.status(200).json(list.flat().sort((a,b) => b.createdAt - a.createdAt));
     }
-    catch(err){
-        console.log("Problem creating a video!");
+    catch(err) {
+        console.log("Problem getting subed videos!");
         next(err);
     }
 }

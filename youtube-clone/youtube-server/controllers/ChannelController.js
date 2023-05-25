@@ -48,7 +48,7 @@ export const getUser = async (req, res, next) => {
 
 export const subscribe = async (req, res, next) => {
     try{
-        await Channel.findById(req.user.id,{
+        await Channel.findByIdAndUpdate(req.user.id,{
             $push:{subscribedUsers:req.params.id}
         })
 
@@ -66,7 +66,7 @@ export const subscribe = async (req, res, next) => {
 
 export const unsubscribe = async (req, res, next) => {
     try{
-        await Channel.findById(req.user.id,{
+        await Channel.findByIdAndUpdate(req.user.id,{
             $pull:{subscribedUsers:req.params.id}
         })
 
@@ -83,7 +83,7 @@ export const unsubscribe = async (req, res, next) => {
 
 export const like = async (req, res, next) => {
     try{
-        
+
     }
     catch(err){
         next(err)

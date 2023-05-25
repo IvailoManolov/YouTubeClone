@@ -26,6 +26,6 @@ router.get("/trend", trendVideo);
 router.get("/random", randomVideo);
 
 //Getting trendy videos
-router.get("/sub", subbed);
+router.get("/sub", verifyToken, subbed);
 
 export default router;
