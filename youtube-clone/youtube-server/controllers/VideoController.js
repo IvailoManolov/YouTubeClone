@@ -138,3 +138,27 @@ export const subbed = async (req,res,next) => {
         next(err);
     }
 }
+
+export const getByTag = async (req,res,next) => {
+    try{
+        const trendyVideos = await Video.find().sort({views:-1});
+
+        res.status(200).json(trendyVideos);
+    }
+    catch(err){
+        console.log("Problem getting random videos!");
+        next(err);
+    }
+}
+
+export const search = async (req,res,next) => {
+    try{
+        const trendyVideos = await Video.find().sort({views:-1});
+
+        res.status(200).json(trendyVideos);
+    }
+    catch(err){
+        console.log("Problem getting random videos!");
+        next(err);
+    }
+}
