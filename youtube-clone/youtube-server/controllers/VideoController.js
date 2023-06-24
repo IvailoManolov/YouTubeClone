@@ -97,6 +97,8 @@ export const randomVideo = async (req,res,next) => {
     try{
         const randomVideos = await Video.aggregate([{$sample:{size:40}}])
 
+        console.log("Random video accquired successfully!");
+
         res.status(200).json(randomVideos);
     }
     catch(err){
@@ -108,6 +110,8 @@ export const randomVideo = async (req,res,next) => {
 export const trendVideo = async (req,res,next) => {
     try{
         const trendyVideos = await Video.find().sort({views:-1});
+
+        console.log("Trendy video accquired successfully!")
 
         res.status(200).json(trendyVideos);
     }
