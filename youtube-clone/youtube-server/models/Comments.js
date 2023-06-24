@@ -17,4 +17,4 @@ const CommentSchema = new mongoose.Schema({
     }
 },{timestamps:true})
 
-export default mongoose.model("Channel",CommentSchema)
+export default mongoose.model("Comments",CommentSchema)

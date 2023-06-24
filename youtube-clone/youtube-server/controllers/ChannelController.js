@@ -1,4 +1,5 @@
-import Channel from "../models/Channel";
+import Channel from "../models/Channel.js";
+import Video from "../models/Video.js";
 
 export const updateUser = async (req, res, next) => {
 
@@ -83,7 +84,16 @@ export const unsubscribe = async (req, res, next) => {
 
 export const like = async (req, res, next) => {
     try{
+        const id = req.params.id;
+        const videoId = req.params.videoId;
 
+        // Add the user to the likes array
+        // And remove it from the dislikes array, since we liked the video.
+        await Video.findByIdAndUpdate(videoId,{
+            $addToSet : {likes:id},
+            $pull: {dislikes:id}
+        })
+        res.status(200).json("The video has been liked.")
     }
     catch(err){
         next(err)
@@ -91,8 +101,18 @@ export const like = async (req, res, next) => {
 }
 
 export const dislike = async (req, res, next) => {
-    try{
+    try {
+        const id = req.params.id;
+        const videoId = req.params.id;
 
+        // Add the user id to the dislikes array,
+        // And remove it from the likes array, since we have disliked the video.
+        await Video.findByIdAndUpdate(videoId,{
+            $addToSet : {dislikes:id},
+            $pull : {likes:id}
+        })
+
+        res.status(200).json("The video has been disliked.")
     }
     catch(err){
         next(err)
