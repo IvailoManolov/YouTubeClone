@@ -67,10 +67,11 @@ const Signin = () => {
     const[email,setEmail] = useState("");
     const[pass,setPass] = useState("");
 
-    const handleLogin = async() => {
+    const handleLogin = async(e) => {
+        e.preventDefault();
 
         try{
-            const res = await axios.post('/authentication/signin',{name,pass});
+            const res = await axios.post('/authentication/signin', {name,pass});
 
             console.log(res.data);
 
@@ -93,7 +94,7 @@ const Signin = () => {
             <Input placeholder='username' onChange={e=> setName(e.target.value)}/>
             <Input placeholder='password'onChange={e=> setPass(e.target.value)} type="password"/>
 
-            <Button onClick={handleLogin}>Sign in</Button>
+            <Button onClick={handleLogin}> Sign in </Button>
 
             <Title>
                 No account yet ?
@@ -103,7 +104,7 @@ const Signin = () => {
             <Input placeholder='email' onChange={e=> setEmail(e.target.value)} type='email'/>
             <Input placeholder='password' onChange={e=> setPass(e.target.value)} type="password"/>
 
-            <Button>Sign up</Button>
+            <Button> Sign up </Button>
         </Wrapper>
         <More>
             English(US)
