@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import YTLogo from '../Images/YouTubeLogo.png'
@@ -82,6 +83,9 @@ const Title = styled.h2`
 `
 
 const Menu = ({darkMode,setDarkMode}) => {
+
+  const currentUser = useSelector(state => state.user.currentUser);
+
   return (
     <Container>
         <Wrapper>
@@ -123,7 +127,8 @@ const Menu = ({darkMode,setDarkMode}) => {
 
             <Hr/>
             
-            <Login>
+           {!currentUser &&
+            <><Login>
                 Sign in to like videos, comment, and subscribe.
             <Link to="signin" style={{textDecoration:'none'}}>
             <Button>
@@ -136,6 +141,7 @@ const Menu = ({darkMode,setDarkMode}) => {
             </Link> 
             </Login> 
             <Hr/>
+            </>}
             
             <Title>
                 More from YouTube

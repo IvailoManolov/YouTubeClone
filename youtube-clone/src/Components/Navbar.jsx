@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -70,7 +71,25 @@ const Button = styled.button`
     gap:5px;
 `
 
+const User = styled.div`
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:500;
+  color:${({theme}) => theme.text};
+`
+
+const Avatar = styled.img`
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  background-color:#999;
+`
+
 const Navbar = () => {
+
+  const currentUser = useSelector(state => state.user.currentUser);
+
   return (
     <Container>
       <Wrapper>
@@ -85,14 +104,21 @@ const Navbar = () => {
             </svg>
         </SearchIconContainer>
 
-          <Link to={"signin"} style={{textDecoration:'none'}}>
+        { currentUser ? (
+            <User>
+             <VideoCallOutlinedIcon/>
+             <Avatar/>
+             {currentUser.name}
+            </User>
+        ) :
+         <Link to={"signin"} style={{textDecoration:'none'}}>
           <Button>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-1 h-1" height={"15px"} width={"15px"}>
               <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
             </svg>
             SIGN IN
           </Button>
-          </Link>
+          </Link>}
 
       </Wrapper>
     </Container>
