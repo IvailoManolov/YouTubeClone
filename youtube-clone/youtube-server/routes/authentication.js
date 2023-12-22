@@ -1,15 +1,15 @@
 import express from "express"
-import { signin, signup } from "../controllers/AuthenticationController.js";
+import { googleAuth, signin, signup } from "../controllers/AuthenticationController.js";
 
 const router = express.Router();
 
 // CREATING A USER
-router.post("/signup", signup)
+router.post("/signup", signup);
 
 // // SINGING IN 
-router.post("/signin", signin)
+router.post("/signin", signin);
 
-// // GOOGLE AUTHENTICATION
-// router.post("/google",)
+// GOOGLE AUTHENTICATION
+router.post("/google",googleAuth);
 
 export default router;

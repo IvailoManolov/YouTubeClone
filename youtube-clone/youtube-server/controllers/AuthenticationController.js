@@ -52,3 +52,38 @@ export const signin = async (req, res, next) => {
         next(err)
     }
 }
+
+export const googleAuth = async(req,res,next) => {
+    try{
+        const user = await Channel.findOne({email:req.body.email});
+
+        // Already registered. Send cookie.
+        if(user){
+            const token = jwt.sign({id:user._id}, process.env.JWT);
+
+            res.cookie("access_token", token, {
+                httpOnly:true
+            })
+            .status(200)
+            .json(user._doc);
+        }
+
+        else{
+            const newUser = new Channel({...req.body, fromGoogle:true});
+
+            const savedUser = await newUser.save();
+
+            const token = jwt.sign({id:savedUser._id}, process.env.JWT);
+
+            res.cookie("access_token", token, {
+                httpOnly:true
+            })
+            .status(200)
+            .json(savedUser._doc);
+        }
+
+    }catch(err){
+        console.log("Problem with Google Auth");
+        next(err);
+    }
+}
