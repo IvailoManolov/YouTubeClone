@@ -84,7 +84,7 @@ export const unsubscribe = async (req, res, next) => {
 
 export const like = async (req, res, next) => {
     try{
-        const id = req.params.id;
+        const id = req.user.id;
         const videoId = req.params.videoId;
 
         // Add the user to the likes array
@@ -102,7 +102,7 @@ export const like = async (req, res, next) => {
 
 export const dislike = async (req, res, next) => {
     try {
-        const id = req.params.id;
+        const id = req.user.id;
         const videoId = req.params.id;
 
         // Add the user id to the dislikes array,
