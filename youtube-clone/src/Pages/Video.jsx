@@ -1,7 +1,14 @@
+import axios from 'axios'
 import React from 'react'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
+import { format } from 'timeago.js'
 import Card from '../Components/Card'
 import Comments from '../Components/Comments'
+import { fetchSuccess } from '../Redux/videoSlice'
 
 const Container = styled.div`
     display: flex;
@@ -124,6 +131,33 @@ const Description = styled.div`
 `
 
 const Video = () => {
+
+    const {currentUser} = useSelector((state) => state.user);
+    const {currentVideo} = useSelector((state) => state.video);
+
+    const dispatch = useDispatch();
+
+    const path = useLocation().pathname.split('/')[2];
+
+    const[channel,setChannel] = useState({});
+
+    useEffect(() => {
+        const fetchData = async()=>{
+            try{
+                const videoResponse = await axios.get(`/videos/find/${path}`);
+                const channelResponse = await axios.get(`/users/find/${videoResponse.userId}`);
+
+                setChannel(channelResponse.data);
+
+                dispatch(fetchSuccess(videoResponse.data));
+            }catch(err){
+
+            }
+        }
+
+        fetchData();
+    },[path,dispatch]);
+
   return (
     <Container>
         {/* Main Video content / Views / Likes&Dislikes */}
@@ -142,19 +176,19 @@ const Video = () => {
             </VideoWrapper>
 
             <Title>
-                Test Video
+                {currentVideo.title}
             </Title>
 
             <Details>
                 <ChannelDetails>
-                    <ChannelImage />
+                    <ChannelImage src={channel.img} />
 
                     <ChannelInfoDetails>
                         <ChannelName>
-                            LeadEngineer
+                            {channel.name}
                         </ChannelName>
                         <Info>
-                            11.3M subscribers
+                            {channel.subscribers} subscribers
                         </Info>
                     </ChannelInfoDetails>
 
@@ -170,8 +204,7 @@ const Video = () => {
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-1 h-1" height={"20px"} width={"20px"}>
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.5c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75A2.25 2.25 0 0116.5 4.5c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23H5.904M14.25 9h2.25M5.904 18.75c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 01-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 10.203 4.167 9.75 5 9.75h1.053c.472 0 .745.556.5.96a8.958 8.958 0 00-1.302 4.665c0 1.194.232 2.333.654 3.375z" />
                     </svg>
-                    1.8K
-                     |
+                    {currentVideo.likes?.length}
                     </Button>
                      <Button>
                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-1 h-1" height={"20px"} width={"20px"}>
@@ -209,13 +242,11 @@ const Video = () => {
             <DescriptionSection>
 
                 <DescriptionSectionDetails>
-                    50K views Apr 7, 2022
+                    {currentVideo.views} views {format(currentVideo.createdAt)}
                 </DescriptionSectionDetails>
 
                 <Description>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat sequi culpa, consequuntur, cum quasi assumenda minus ut praesentium fuga similique eum odit sint quibusdam rem, vitae eaque harum ipsam libero.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem saepe numquam delectus similique aspernatur corporis doloribus error laboriosam quod, repellat hic? Animi doloremque perferendis consequatur reiciendis quo aliquam qui unde?
-                    Lorem ipsum dolor sit amet consectetur auptas adipisci at, commodi dolorem inventore error perferendis placeat similique vel odit in alias iste omnis.
+                    {currentVideo.description}    
                 </Description>
 
             </DescriptionSection>
@@ -226,7 +257,7 @@ const Video = () => {
         </Content>
 
         {/* Recommend Section*/}
-        <Recommendation>
+        {/* <Recommendation>
             <Card type="sm"/>
             <Card type="sm"/>
             <Card type="sm"/>
@@ -234,7 +265,7 @@ const Video = () => {
             <Card type="sm"/>
             <Card type="sm"/>
             <Card type="sm"/>
-        </Recommendation>
+        </Recommendation> */}
 
     </Container>
   )

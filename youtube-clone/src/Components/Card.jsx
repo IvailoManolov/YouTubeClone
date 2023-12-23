@@ -58,7 +58,7 @@ const Info = styled.div`
 
 const Card = ({type, video}) => {
   const[channel,setChannel] = useState({})
-
+ 
   // Get channel information for a particular video creator.
   useEffect(() => {
     const fetchChannel = async () => {
@@ -71,7 +71,7 @@ const Card = ({type, video}) => {
   },[video.userId])
 
   return (
-    <Link to="/video/test" style={{textDecoration:"none"}}>
+    <Link to={`/video/${video.id}`} style={{textDecoration:"none"}}>
     <Container type = {type}>
       <Image type={type} src={video.img}/>
       <Details type={type}>

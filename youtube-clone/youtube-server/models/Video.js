@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 const VideoSchema = new mongoose.Schema({
-
     userId:{
         type:String,
         required:true
@@ -46,8 +45,6 @@ const VideoSchema = new mongoose.Schema({
         type:[String],
         default:[]
     }
-
-
 },{timestamps:true})
 
 export default mongoose.model("Video",VideoSchema)
