@@ -38,11 +38,12 @@ export const deleteUser = async (req, res, next) => {
 
 export const getUser = async (req, res, next) => {
     try{
-        const channel = Channel.findById(req.params.id);
+        const channel = await Channel.findById(req.params.id);
+        console.log(req.params);
         res.status(200).json(channel);
     }
     catch(err){
-        console.log("Channel not found!");
+        console.log("Channel not found! " + err);
         next(err)
     }
 }

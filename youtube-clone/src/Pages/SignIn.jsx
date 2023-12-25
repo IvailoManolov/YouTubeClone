@@ -94,7 +94,7 @@ const Signin = () => {
             dispatch(loginStart);
             const res = await signInWithPopup(auth,provider);
 
-            const user =  axios.post('/authentication/google', {
+            const user = await axios.post('/authentication/google', {
                 name:res.user.displayName,
                 email:res.user.email,
                 img:res.user.photoURL

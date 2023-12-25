@@ -84,7 +84,7 @@ const Title = styled.h2`
 
 const Menu = ({darkMode,setDarkMode}) => {
 
-  const currentUser = useSelector(state => state.user.currentUser);
+  const {currentUser} = useSelector(state => state.user);
 
   return (
     <Container>

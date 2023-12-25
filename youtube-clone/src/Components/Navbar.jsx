@@ -2,6 +2,9 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import SwitchVideoOutlinedIcon from '@mui/icons-material/SwitchVideoOutlined';
+import { useState } from 'react';
+import Upload from './Upload';
 
 const Container = styled.div`
 position:sticky;
@@ -90,7 +93,11 @@ const Navbar = () => {
 
   const currentUser = useSelector(state => state.user.currentUser);
 
+  const[open,setIsOpen] = useState(false);
+
+
   return (
+  <>
     <Container>
       <Wrapper>
 
@@ -106,7 +113,7 @@ const Navbar = () => {
 
         { currentUser ? (
             <User>
-             <VideoCallOutlinedIcon/>
+             <SwitchVideoOutlinedIcon onClick={()=>setIsOpen(true)}/>
              <Avatar src={currentUser.img}/>
              {currentUser.name}
             </User>
@@ -122,6 +129,9 @@ const Navbar = () => {
 
       </Wrapper>
     </Container>
+
+    {open && <Upload setIsOpen={setIsOpen}/>}
+  </>
   )
 }
 
