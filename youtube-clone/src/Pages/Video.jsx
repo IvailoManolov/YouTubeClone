@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import { format } from 'timeago.js'
 import Card from '../Components/Card'
 import Comments from '../Components/Comments'
+import Recommendation from '../Components/Recommendation'
 import { subscription } from '../Redux/userSlice'
 import { dislike, fetchSuccess, like } from '../Redux/videoSlice'
 
@@ -44,9 +45,6 @@ const ChannelInfoDetails = styled.div`
     flex-direction:column;
 `
 
-const Recommendation = styled.div`
-    flex:2;
-`
 const ChannelImage = styled.img`
   width:40px;
   height:40px;
@@ -280,15 +278,7 @@ const Video = () => {
         </Content>
 
         {/* Recommend Section*/}
-        {/* <Recommendation>
-            <Card type="sm"/>
-            <Card type="sm"/>
-            <Card type="sm"/>
-            <Card type="sm"/>
-            <Card type="sm"/>
-            <Card type="sm"/>
-            <Card type="sm"/>
-        </Recommendation> */}
+        <Recommendation tags={currentVideo?.tags} />
 
     </Container>
   )
