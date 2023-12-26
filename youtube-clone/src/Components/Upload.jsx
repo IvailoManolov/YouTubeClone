@@ -86,7 +86,6 @@ const Upload = ({setIsOpen}) => {
 
     const handleUpload = async(e)=>{
         e.preventDefault();
-
         try{
             const response = await axios.post("/videos",{...inputs,tags});
             setIsOpen(false);
@@ -120,7 +119,7 @@ const Upload = ({setIsOpen}) => {
             //Calculate progress
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
-            urlType === "imgUrl" ? setImgPercentage(Math.round(progress)) : setVideoPercentage(Math.round(progress));
+            urlType === "img" ? setImgPercentage(Math.round(progress)) : setVideoPercentage(Math.round(progress));
 
             switch(snapshot.state){
                 case 'paused' : console.log('Upload is paused'); break;
